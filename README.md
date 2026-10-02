@@ -8,7 +8,7 @@ Built for **Task 2** of the **Elevate Labs Web Development Internship**.
 
 ## 🔗 Live Demo & Links
 
-* **Live Workspace:** [https://tethi04.github.io/aura-tasks-todo-app/](https://tethi04.github.io/aura-tasks-todo-app/)
+* **Live Workspace:** [https://tethi04.github.io/aura-tasks-todo-app/](tethi04.github.io/elevate-web-development-task-2/)
 * **GitHub Repository:** [https://github.com/Tethi04/aura-tasks-todo-app](https://github.com/Tethi04/aura-tasks-todo-app)
 
 ---
