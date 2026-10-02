@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let tasks = JSON.parse(localStorage.getItem('aura_tasks')) || [];
   let currentFilter = 'all';
   let searchQuery = '';
+  
+  // Calendar State
+  let calendarDate = new Date();
+  let selectedDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
   // DOM Elements
   const welcomeScreen = document.getElementById('welcome-screen');
@@ -26,6 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const taskList = document.getElementById('task-list');
   const emptyState = document.getElementById('empty-state');
 
+  // Calendar Elements
+  const monthYearEl = document.getElementById('calendar-month-year');
+  const daysGridEl = document.getElementById('calendar-days');
+  const prevMonthBtn = document.getElementById('prev-month-btn');
+  const nextMonthBtn = document.getElementById('next-month-btn');
+
   /* ==========================================================================
      1. Welcome Screen Transition & Date Initialization
      ========================================================================== */
@@ -45,10 +55,81 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDate();
 
   /* ==========================================================================
-     2. Task CRUD Operations
+     2. Calendar Rendering & Interactions
+     ========================================================================== */
+  function renderCalendar() {
+    if (!monthYearEl || !daysGridEl) return;
+
+    const year = calendarDate.getFullYear();
+    const month = calendarDate.getMonth();
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", 
+                        "July", "August", "September", "October", "November", "December"];
+    monthYearEl.textContent = `${monthNames[month]} ${year}`;
+
+    daysGridEl.innerHTML = '';
+
+    const firstDayIndex = new Date(year, month, 1).getDay();
+    const totalDays = new Date(year, month + 1, 0).getDate();
+    const prevLastDay = new Date(year, month, 0).getDate();
+
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    // Previous Month Empty Days
+    for (let x = firstDayIndex; x > 0; x--) {
+      const dayDiv = document.createElement('div');
+      dayDiv.classList.add('calendar-day', 'other-month');
+      dayDiv.textContent = prevLastDay - x + 1;
+      daysGridEl.appendChild(dayDiv);
+    }
+
+    // Current Month Days
+    for (let day = 1; day <= totalDays; day++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.classList.add('calendar-day');
+      
+      const formattedMonth = String(month + 1).padStart(2, '0');
+      const formattedDay = String(day).padStart(2, '0');
+      const dateStr = `${year}-${formattedMonth}-${formattedDay}`;
+
+      dayDiv.textContent = day;
+
+      if (dateStr === todayStr) dayDiv.classList.add('today');
+      if (dateStr === selectedDate) dayDiv.classList.add('active-date');
+
+      // Check if tasks exist on this date (supports backward compatibility for older tasks)
+      const hasTaskOnDate = tasks.some(task => (task.date === dateStr) || (!task.date && dateStr === todayStr));
+      if (hasTaskOnDate) dayDiv.classList.add('has-tasks');
+
+      // Date Selection Click Event
+      dayDiv.addEventListener('click', () => {
+        selectedDate = dateStr;
+        renderCalendar();
+        render();
+      });
+
+      daysGridEl.appendChild(dayDiv);
+    }
+  }
+
+  if (prevMonthBtn && nextMonthBtn) {
+    prevMonthBtn.addEventListener('click', () => {
+      calendarDate.setMonth(calendarDate.getMonth() - 1);
+      renderCalendar();
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+      calendarDate.setMonth(calendarDate.getMonth() + 1);
+      renderCalendar();
+    });
+  }
+
+  /* ==========================================================================
+     3. Task CRUD Operations
      ========================================================================== */
   function saveTasks() {
     localStorage.setItem('aura_tasks', JSON.stringify(tasks));
+    renderCalendar();
     render();
   }
 
@@ -59,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category,
       priority,
       completed: false,
+      date: selectedDate, // Selected calendar date-e save hobe
       createdAt: new Date()
     };
     tasks.unshift(newTask);
@@ -83,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     3. Rendering & Event Listeners
+     4. Rendering & Event Listeners
      ========================================================================== */
   taskForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -109,15 +191,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function render() {
-    // 1. Filter Tasks
-    let filteredTasks = tasks.filter(task => {
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    // 1. Selected Date anujayi Task Filter
+    let dateFilteredTasks = tasks.filter(task => {
+      if (task.date) {
+        return task.date === selectedDate;
+      }
+      return selectedDate === todayStr; // Ager purono task gulo aajker date-e dekhabe
+    });
+
+    // 2. Filter Status (All/Active/Completed) & Search Query
+    let filteredTasks = dateFilteredTasks.filter(task => {
       const matchesSearch = task.text.toLowerCase().includes(searchQuery);
       if (currentFilter === 'active') return !task.completed && matchesSearch;
       if (currentFilter === 'completed') return task.completed && matchesSearch;
       return matchesSearch;
     });
 
-    // 2. Render List
+    // 3. Render Task List
     taskList.innerHTML = '';
     if (filteredTasks.length === 0) {
       emptyState.classList.remove('hidden');
@@ -149,19 +241,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // 3. Update Metrics
-    updateStats();
+    // 4. Selected Date-er Analytics Stats Update
+    updateStats(dateFilteredTasks);
   }
 
-  function updateStats() {
-    const total = tasks.length;
-    const completed = tasks.filter(t => t.completed).length;
+  function updateStats(dateFilteredTasks) {
+    const total = dateFilteredTasks.length;
+    const completed = dateFilteredTasks.filter(t => t.completed).length;
     const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
 
     statTotalEl.textContent = total;
     statCompletedEl.textContent = completed;
     progressBarFill.style.width = `${percent}%`;
-    progressText.textContent = `${percent}% tasks completed today`;
+    progressText.textContent = `${percent}% tasks completed for selected date`;
   }
 
   // Global window helpers for inline onclick handlers
@@ -175,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     4. Mini Celebration Effects
+     5. Mini Celebration Effects
      ========================================================================== */
   function triggerConfetti() {
     const colors = ['#6BB1AD', '#A7BCBD', '#E5A9A9', '#E6748E'];
@@ -202,6 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initial Load
+  renderCalendar();
   render();
 });
-  
