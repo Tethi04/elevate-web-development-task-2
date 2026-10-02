@@ -48,6 +48,11 @@
       </div>
     </header>
 
+    <button id="openCalendarBtn" class="glass-btn">
+  <span>📅</span> Calendar
+    </button>
+    
+
     <!-- Productivity Overview Card -->
     <section class="overview-card glass-panel">
       <div class="overview-info">
@@ -121,20 +126,36 @@
 
   </div>
 
-  <!-- Pastel Glassmorphic Calendar Card -->
-<div class="calendar-card glass-panel">
-  <div class="calendar-header">
-    <button id="prev-month-btn" class="calendar-nav-btn">&lt;</button>
-    <h3 id="calendar-month-year">Month Year</h3>
-    <button id="next-month-btn" class="calendar-nav-btn">&gt;</button>
+  <!-- Glassmorphic Calendar Modal -->
+<div id="calendarModal" class="modal-overlay hidden">
+  <div class="modal-card glass-container">
+    <div class="modal-header">
+      <div class="month-nav">
+        <button id="prevMonthBtn" class="nav-btn">&lt;</button>
+        <h3 id="currentMonthYear">October 2026</h3>
+        <button id="nextMonthBtn" class="nav-btn">&gt;</button>
+      </div>
+      <button id="closeCalendarBtn" class="close-modal-btn">&times;</button>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-grid-header">
+      <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+    <div id="calendarDays" class="calendar-days-grid"></div>
+
+    <!-- Selected Date Task Panel -->
+    <div id="dateTaskPanel" class="date-task-panel hidden">
+      <h4 id="selectedDateTitle">Tasks for Selected Date</h4>
+      <div class="date-input-group">
+        <input type="text" id="dateTaskInput" placeholder="Add a task for this date..." />
+        <button id="addDateTaskBtn" class="add-date-btn">Add Task</button>
+      </div>
+      <ul id="dateTaskList" class="date-task-list"></ul>
+    </div>
   </div>
-  <div class="calendar-weekdays">
-    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
-  </div>
-  <div id="calendar-days" class="calendar-days-grid"></div>
 </div>
   
-
   <script src="script.js"></script>
 </body>
 </html>
