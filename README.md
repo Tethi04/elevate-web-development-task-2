@@ -16,7 +16,7 @@ Built for **Task 2** of the **Elevate Labs Web Development Internship**.
 ## 📸 Previews
 
 ### 1. Welcome Screen
-![Welcome Screen Preview](https://tethi04.github.io/aura-tasks-todo-app/assets/welcome-screen.png)
+![Welcome Screen Preview](<img width="1079" height="2050" alt="Image" src="https://github.com/user-attachments/assets/d0d1d0eb-8da2-4982-bbc4-ab813f5a3a2c" />)
 
 ### 2. Main Workspace Overview
 ![Main Workspace Preview](https://tethi04.github.io/aura-tasks-todo-app/assets/workspace-preview.png)
@@ -75,4 +75,4 @@ aura-tasks-todo-app/
 
 * **Tethi Biswas**
 * **GitHub:** [@Tethi04](https://github.com/Tethi04)
-* **Project:** Elevate Labs Web Development Internship — Task 2[span_11](start_span)[span_11](end_span)
+* **Project:** Elevate Labs Web Development Internship — Task 2
