@@ -2,7 +2,7 @@
 
 A modern, high-aesthetic To-Do web application featuring a welcome screen overlay, pastel glassmorphism UI, real-time productivity analytics, categories, priority tags, search/filter controls, and persistent `localStorage`.
 
-Built for **Task 2** of the **Elevate Labs Web Development Internship**[span_0](start_span)[span_0](end_span).
+Built for **Task 2** of the **Elevate Labs Web Development Internship**.
 
 ---
 
@@ -16,10 +16,10 @@ Built for **Task 2** of the **Elevate Labs Web Development Internship**[span_0](
 ## 📸 Previews
 
 ### 1. Welcome Screen
-![Welcome Screen Preview](<img width="1079" height="2050" alt="Image" src="https://github.com/user-attachments/assets/a974a3e3-1b75-42c3-892a-ef5bee29cad6" />)
+![Welcome Screen Preview](https://tethi04.github.io/aura-tasks-todo-app/assets/welcome-screen.png)
 
 ### 2. Main Workspace Overview
-![Main Workspace Preview](<img width="1072" height="2280" alt="Image" src="https://github.com/user-attachments/assets/d84d1d83-5340-480d-99d2-3b05b084b61d" />)
+![Main Workspace Preview](https://tethi04.github.io/aura-tasks-todo-app/assets/workspace-preview.png)
 
 ---
 
@@ -27,8 +27,8 @@ Built for **Task 2** of the **Elevate Labs Web Development Internship**[span_0](
 
 * **Welcome Screen Overlay:** An interactive entrance screen offering a serene transition into the workspace.
 * **Pastel Glassmorphic Styling:** Custom glass translucent backdrop filters, soft radial background blobs, and a refined pastel color palette.
-* **Dynamic Task CRUD:** Add, complete, toggle, and delete tasks instantly without page reloads[span_1](start_span)[span_1](end_span).
-* **Real-time Analytics:** Daily progress bar and dynamic percentage score reflecting task completion[span_2](start_span)[span_2](end_span).
+* **Dynamic Task CRUD:** Add, complete, toggle, and delete tasks instantly without page reloads.
+* **Real-time Analytics:** Daily progress bar and dynamic percentage score reflecting task completion.
 * **Categories & Priorities:** Tag tasks with custom categories (*Personal, Study, Creative, Code*) and priority levels (*Low, Medium, High*).
 * **Search & Filter System:** Filter tasks by status (*All, Active, Completed*) or search in real-time with string match highlighting.
 * **Local Persistence:** Automatic `localStorage` synchronisation to retain state across sessions.
@@ -52,9 +52,9 @@ The design tokens strictly incorporate the following pastel theme:
 
 ## 🛠️ Tech Stack & Concepts Covered
 
-* **HTML5:** Semantic markup, form controls, accessibility attributes[span_3](start_span)[span_3](end_span).
-* **CSS3:** Custom properties (`:root`), Flexbox, CSS Grid, glassmorphism (`backdrop-filter`), keyframe animations[span_4](start_span)[span_4](end_span).
-* **Vanilla JavaScript (ES6+):** DOM selection & manipulation, Event Listeners, State Management, `localStorage` API, Array methods (`filter`, `map`, `unshift`)[span_5](start_span)[span_5](end_span).
+* **HTML5:** Semantic markup, form controls, accessibility attributes.
+* **CSS3:** Custom properties (`:root`), Flexbox, CSS Grid, glassmorphism (`backdrop-filter`), keyframe animations.
+* **Vanilla JavaScript (ES6+):** DOM selection & manipulation, Event Listeners, State Management, `localStorage` API, Array methods (`filter`, `map`, `unshift`).
 
 ---
 
@@ -68,16 +68,6 @@ aura-tasks-todo-app/
 ├── README.md        # Comprehensive task documentation
 └── assets/          # Application preview screenshots
 ```
-
----
-
-## 🎯 Task Checklist (Elevate Labs Task 2)
-
-- [x] **HTML & Form Setup:** Inputs, submit triggers, dynamic list container[span_6](start_span)[span_6](end_span).
-- [x] **DOM Manipulation:** Dynamically append, update, and remove task elements[span_7](start_span)[span_7](end_span).
-- [x] **Event Handling:** Click & form submission event listeners[span_8](start_span)[span_8](end_span).
-- [x] **Task Completion Toggle:** Dynamic class toggling for strikethrough states[span_9](start_span)[span_9](end_span).
-- [x] **Deletion Logic:** Item removal with instant DOM updates[span_10](start_span)[span_10](end_span).
 
 ---
 
